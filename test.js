@@ -1,5 +1,5 @@
 /*!
- * date-helpers <https://github.com/jonschlinkert/date-helpers>
+ * helper-timeago <https://github.com/jonschlinkert/helper-timeago>
  *
  * Copyright (c) 2014 Jon Schlinkert, contributors.
  * Licensed under the MIT License
@@ -8,6 +8,7 @@
 'use strict';
 
 var should = require('should');
+var date = require('date.js');
 var Handlebars = require('handlebars');
 var _ = require('lodash');
 var timeago = require('./');
@@ -28,7 +29,11 @@ describe('handlebars:', function () {
     Handlebars.compile('{{timeago date}}')({date: new Date()}).should.equal('Just now');
     Handlebars.compile('{{timeago date}}')({date: new Date('2/10/1995')}).should.equal('19 years ago');
     Handlebars.compile('{{timeago date}}')({date: '2/10/1995'}).should.equal('19 years ago');
+    Handlebars.compile('{{timeago date}}')({date: date('yesterday')}).should.equal('Yesterday');
     Handlebars.compile('{{timeago date}}')({date: '11/01/2013'}).should.equal('1 year ago');
+    Handlebars.compile('{{timeago date}}')({date: date('1 day ago')}).should.equal('Yesterday');
+    Handlebars.compile('{{timeago "2/10/1995"}}')().should.equal('19 years ago');
+    Handlebars.compile('{{timeago "11/01/2013"}}')().should.equal('1 year ago');
   });
 });
 
